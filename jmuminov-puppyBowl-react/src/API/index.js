@@ -18,7 +18,7 @@ export const fetchSinglePlayer = async (playerId) => {
       throw new Error("Network response was not ok");
     }
     const playerData = await response.json();
-    return playerData.data.player;
+    return playerData.data;
   } catch (err) {
     console.error("Error fetching single player:", err);
     return null;
@@ -43,10 +43,9 @@ export const removePlayer = async (playerId) => {
       const response = await fetch(`${API_URL}/players`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(playerObj),
+        body: JSON.stringify(playerObj.player),
       });
       const json = await response.json();
-  
       if (json.error) {
         throw new Error(json.error.message);
       }
